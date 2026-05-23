@@ -27,12 +27,38 @@
 1. [Executive Summary](#executive-summary)
 2. [Scope & Constraints](#scope--constraints)
 3. [Feature Requirements by Phase](#feature-requirements-by-phase)
-   - [Phase 1 (MVP): Core Features](#phase-1-mvp-core-features)
-   - [Phase 2 (Enhanced): Engagement Features](#phase-2-enhanced-engagement-features)
-   - [Phase 3 (Health): Wellness Features](#phase-3-health-wellness-features)
-4. [Detailed Feature Specifications](#detailed-feature-specifications)
-5. [System-Wide Non-Functional Requirements](#system-wide-non-functional-requirements)
-6. [Data Classification & Lifecycle](#data-classification--lifecycle)
+   - **Phase 1 (MVP): Core Features**
+     - [1. Authentication & Guardian Management](#1-authentication--guardian-management)
+     - [2. Sync & Offline Functionality](#2-sync--offline-functionality)
+     - [3. Dashboard & Student Profile](#3-dashboard--student-profile)
+     - [4. School Information & Multi-Tenancy](#4-school-information--multi-tenancy)
+     - [5. Attendance Intelligence](#5-attendance-intelligence)
+     - [6. Class Routine](#6-class-routine)
+     - [7. Daily Class Activity](#7-daily-class-activity)
+     - [8. Homework & Assignment Tracker](#8-homework--assignment-tracker)
+     - [9. Examination & Result Management](#9-examination--result-management)
+     - [10. Notifications](#10-notifications-core-implementation)
+   - **Phase 2 (Enhanced): Engagement Features**
+     - [11. Behavior & Discipline Analysis](#11-behavior--discipline-analysis)
+     - [12. Unified Performance Scorecard](#12-unified-performance-scorecard)
+     - [13. Smart Learning Progress Tracking](#13-smart-learning-progress-tracking)
+     - [14. Fee Management](#14-fee-management)
+     - [15. Notice Board](#15-notice-board)
+     - [16. Event Management](#16-event-management)
+     - [17. Holiday Calendar](#17-holiday-calendar)
+     - [18. Issue Messaging System](#18-issue-messaging-system)
+     - [19. Parent-Teacher Meeting (PTM)](#19-parent-teacher-meeting-ptm)
+     - [20. Teacher Appointment](#20-teacher-appointment)
+     - [21. Tomorrow's Due Dashboard](#21-tomorrows-due-dashboard)
+     - [22. Phone Directory](#22-phone-directory)
+   - **Phase 3 (Health & Growth): Wellness Features**
+     - [23. Health & Growth Monitoring](#23-health--growth-monitoring)
+     - [24. Vaccination Record](#24-vaccination-record)
+     - [25. Daily Parent Tips](#25-daily-parent-tips)
+     - [26. Classroom Snapshots](#26-classroom-snapshots)
+     - [27. Advanced Calendar Integration](#27-advanced-calendar-integration)
+4. [System-Wide Non-Functional Requirements](#system-wide-non-functional-requirements)
+5. [Data Classification & Lifecycle](#data-classification--lifecycle)
 
 ---
 
@@ -111,7 +137,7 @@ An offline-first mobile app that provides real-time updates on academic progress
 **Stories**: 40  
 **Users**: 5,000  
 
-#### **1. Authentication & Guardian Management** 🔐
+#### **1. Authentication & Guardian Management**
 
 **Overview**: Guardian authentication with two types (Key Guardian designated by school, Additional Guardian self-registered). OTP verification only during child-linking, no OTP on login.
 
@@ -164,8 +190,8 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 - **FR-1.8: Additional Guardian revocation (Key Guardian)**
   - Mark as revoked
-  - Immediate logout on next sync
-  - Notification to revoked guardian
+  - Immediate logout detected on next delta sync (within 10 minutes)
+  - Additional Guardian shown in-app message on next sync: "Your access has been revoked. Contact the key guardian." (no push notification)
   - **Implemented by**: [US-007-MVP](USER_STORIES_PERSONAS.md#us-007-mvp-revoke-additional-guardian-access) | **Database**: [TB-1](TECH_ARCHITECTURE.md#tb-1-guardian-profile-table), [TB-3](TECH_ARCHITECTURE.md#tb-3-guardian-children-link-table)
 
 - **FR-1.9: Forgot password**
@@ -207,7 +233,7 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 ---
 
-#### **2. Sync & Offline Functionality** 🔄
+#### **2. Sync & Offline Functionality**
 
 **Overview**: Delta sync architecture with local SQLite. 10-minute background sync when online. Full initial sync on first login. All read features work offline.
 
@@ -254,7 +280,7 @@ An offline-first mobile app that provides real-time updates on academic progress
   - Sync response includes revocation_status flag
   - Revoked guardian: Data cleared, logout forced
   - Message: "Your access has been revoked. Contact the key guardian."
-  - Detection within 10 minutes (or immediate via FCM push)
+  - Detection within 10 minutes via delta sync (no FCM push to Additional Guardian)
   - **Implemented by**: [US-007-MVP](USER_STORIES_PERSONAS.md#us-007-mvp-revoke-additional-guardian-access) | **API**: [EP-7](TECH_ARCHITECTURE.md#ep-7-delta-sync)
 
 - **FR-2.6: Device locking**
@@ -316,7 +342,7 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 ---
 
-#### **3. Dashboard & Student Profile** 📊
+#### **3. Dashboard & Student Profile**
 
 **Overview**: Quick overview of child's performance with school branding. Multi-child switching. Profile information display.
 
@@ -373,7 +399,7 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 ---
 
-#### **4. School Information & Multi-Tenancy** 🏫
+#### **4. School Information & Multi-Tenancy**
 
 **Overview**: School discovery, multi-tenancy isolation, school branding, contact directory.
 
@@ -429,7 +455,7 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 ---
 
-#### **5. Attendance Intelligence** 📍
+#### **5. Attendance Intelligence**
 
 **Overview**: Daily attendance tracking, monthly summaries, alerts for low/irregular attendance.
 
@@ -492,7 +518,7 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 ---
 
-#### **6. Class Routine** 📅
+#### **6. Class Routine**
 
 **Overview**: Weekly class schedule with subjects, timings, and assigned teachers.
 
@@ -526,7 +552,7 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 ---
 
-#### **7. Daily Class Activity** 📚
+#### **7. Daily Class Activity**
 
 **Overview**: Daily updates about classroom topics, activities, and homework.
 
@@ -562,7 +588,7 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 ---
 
-#### **8. Homework & Assignment Tracker** ✏️
+#### **8. Homework & Assignment Tracker**
 
 **Overview**: Complete homework management including assignment, submission, evaluation, deadline tracking with teacher feedback.
 
@@ -624,7 +650,7 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 ---
 
-#### **9. Examination & Result Management** 📝
+#### **9. Examination & Result Management**
 
 **Overview**: Exam scheduling, result publication, performance analytics, and result history.
 
@@ -670,15 +696,16 @@ An offline-first mobile app that provides real-time updates on academic progress
 
 ---
 
-#### **10. Notifications (Core Implementation)** 🔔
+#### **10. Notifications (Core Implementation)**
 
-**Overview**: Push notifications for key events (homework due, exams, attendance alerts) with user preferences.
+**Overview**: Push notifications for key events (homework due, exams, attendance alerts) with user preferences. **All push notifications are delivered to Key Guardian only. Additional Guardian receives no push notifications and accesses data via app sync only.**
 
 **[See User Stories →](USER_STORIES_PERSONAS.md#epic-10-notifications)**  
 **[See API Contracts →](TECH_ARCHITECTURE.md#notification-endpoints)**
 
 **Functional Requirements**:
-- FR-10.1: Push notifications for events
+- FR-10.1: Push notifications for events (Key Guardian only)
+  - **Recipient**: Key Guardian only — Additional Guardian receives no push notifications
   - Homework due tomorrow
   - Exam announced / scheduled
   - Low attendance alert (< 75%)
@@ -687,23 +714,24 @@ An offline-first mobile app that provides real-time updates on academic progress
   - School announcements (important)
   - Fee due (Phase 2)
   - Event announcements
-- FR-10.2: Notification delivery
-  - Firebase Cloud Messaging (FCM) for push
+- FR-10.2: Notification delivery (Key Guardian only)
+  - Firebase Cloud Messaging (FCM) for push to Key Guardian devices only
+  - Additional Guardian: No FCM push; reads updated data via app sync only
   - Tap notification opens relevant section
   - Notification context (which child if multiple)
   - Delivery tracking
-- FR-10.3: Notification preferences
+- FR-10.3: Notification preferences (Key Guardian only)
   - Enable/disable per category
   - Set quiet hours (e.g., 9 PM - 8 AM)
   - Frequency control (e.g., once per day for repeat alerts)
-  - Settings synced across devices
+  - Settings synced across Key Guardian devices
   - Defaults: All enabled, 9 PM - 8 AM quiet
-- FR-10.4: Notification history
+- FR-10.4: Notification history (Key Guardian only)
   - Notification center view (reverse chronological)
   - Mark as read/unread
   - Search notifications
   - Clear all option (optional)
-- FR-10.5: Smart notification rules
+- FR-10.5: Smart notification rules (Key Guardian only)
   - Deduplication: No duplicates for same event
   - Batching: Multiple items into one notification
   - Aggregation: "2 homework + 1 exam result available"
@@ -715,21 +743,23 @@ An offline-first mobile app that provides real-time updates on academic progress
   - Latency: < 5 seconds from event to push
   - Retries: Max 3 on delivery failure
 - NFR-10.2: Scalability
-  - Support millions of concurrent notifications
-  - Rate limiting: Max 10 notifications per hour per guardian
+  - Support millions of concurrent notifications to Key Guardians
+  - Rate limiting: Max 10 notifications per hour per Key Guardian
 - NFR-10.3: Privacy
   - Content not logged on server
   - User preferences always respected
   - No profiling based on notification behavior
 
 **Acceptance Criteria**:
-- ✅ Homework due tomorrow gets push notification
-- ✅ Low attendance alert sent
-- ✅ Exam announced notification received
+- ✅ Push notifications delivered to Key Guardian only
+- ✅ Additional Guardian receives no push notifications
+- ✅ Homework due tomorrow gets push notification (Key Guardian)
+- ✅ Low attendance alert sent (Key Guardian)
+- ✅ Exam announced notification received (Key Guardian)
 - ✅ Tap notification opens correct section
 - ✅ Quiet hours respected (no notifications)
 - ✅ Duplicate notifications prevented
-- ✅ User can disable/enable categories
+- ✅ Key Guardian can disable/enable notification categories
 
 ---
 
@@ -739,30 +769,80 @@ An offline-first mobile app that provides real-time updates on academic progress
 **Stories**: 30-35  
 **Users**: 5,000+  
 
-#### **Features Added**:
-1. Behavior & Discipline Analysis
-2. Unified Performance Scorecard
-3. Smart Learning Progress Tracking
-4. Fee Management
-5. Notice Board
-6. Event Management
-7. Holiday Calendar
-8. Issue Messaging System
-9. Parent-Teacher Meeting (PTM)
-10. Teacher Appointment
-11. Tomorrow's Due Dashboard
-12. Phone Directory (continued from MVP)
+**Note**: Each Phase 2 feature follows same structure as Phase 1 — Overview, Functional Requirements, Non-Functional Requirements, Acceptance Criteria.  
+**[See User Stories →](USER_STORIES_PERSONAS.md#phase-2-enhanced-backlog)** | **[See API Contracts & DB Tables →](TECH_ARCHITECTURE.md#sqlite-database-schema)**
 
-**Note**: Each Phase 2 feature follows same structure as Phase 1:
-- Overview
-- User Stories ([see USER_STORIES_PERSONAS.md](USER_STORIES_PERSONAS.md#phase-2-enhanced-backlog))
-- Functional Requirements
-- Non-Functional Requirements
-- Acceptance Criteria
-- API Contracts ([see TECH_ARCHITECTURE.md](TECH_ARCHITECTURE.md#api-endpoints-by-feature))
-- Database Tables ([see TECH_ARCHITECTURE.md](TECH_ARCHITECTURE.md#sqlite-database-schema))
+---
 
-[Full Phase 2 specifications available in detailed sections below...]
+#### **11. Behavior & Discipline Analysis**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **12. Unified Performance Scorecard**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **13. Smart Learning Progress Tracking**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **14. Fee Management**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **15. Notice Board**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **16. Event Management**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **17. Holiday Calendar**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **18. Issue Messaging System**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **19. Parent-Teacher Meeting (PTM)**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **20. Teacher Appointment**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **21. Tomorrow's Due Dashboard**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **22. Phone Directory**
+
+> Full specifications to be completed in next iteration.
 
 ---
 
@@ -772,22 +852,38 @@ An offline-first mobile app that provides real-time updates on academic progress
 **Stories**: 15-20  
 **Users**: 5,000+  
 
-#### **Features Added**:
-1. Health & Growth Monitoring
-2. Vaccination Record
-3. Daily Parent Tips
-4. Classroom Snapshots
-5. Advanced Calendar Integration
-
-[Full Phase 3 specifications available in detailed sections below...]
+**Note**: Each Phase 3 feature follows same structure as Phase 1 — Overview, Functional Requirements, Non-Functional Requirements, Acceptance Criteria.  
+**[See User Stories →](USER_STORIES_PERSONAS.md#phase-3-health--growth-backlog)** | **[See API Contracts & DB Tables →](TECH_ARCHITECTURE.md#sqlite-database-schema)**
 
 ---
 
-## Detailed Feature Specifications
+#### **23. Health & Growth Monitoring**
 
-[Complete feature-by-feature breakdowns with detailed FRs, NFRs, and acceptance criteria would follow here...]
+> Full specifications to be completed in next iteration.
 
-*Due to length, detailed specs for all 28 features available in full document*
+---
+
+#### **24. Vaccination Record**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **25. Daily Parent Tips**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **26. Classroom Snapshots**
+
+> Full specifications to be completed in next iteration.
+
+---
+
+#### **27. Advanced Calendar Integration**
+
+> Full specifications to be completed in next iteration.
 
 ---
 

@@ -7,7 +7,7 @@
 
 ---
 
-## 🔗 How to Use This Document
+## How to Use This Document
 
 **Each user story includes explicit cross-references**:
 
@@ -28,52 +28,50 @@
 
 1. [User Personas](#user-personas)
 2. [Backlog Legend & Symbols](#backlog-legend--symbols)
-3. [Phase 1 (MVP) Backlog](#phase-1-mvp-backlog) - 35-40 stories, 12 weeks
-4. [Phase 2 (Enhanced) Backlog](#phase-2-enhanced-backlog) - 30-35 stories, 8 weeks
-5. [Phase 3 (Health & Growth) Backlog](#phase-3-health--growth-backlog) - 15-20 stories, 8 weeks
+3. [Phase 1 (MVP) Backlog](#phase-1-mvp-backlog) — 35-40 stories, 12 weeks
+   - [Epic 1: Authentication & Account Management](#epic-1-authentication--account-management)
+   - [Epic 2: Sync & Offline Functionality](#epic-2-sync--offline-functionality)
+   - [Epic 3: Dashboard & Profile](#epic-3-dashboard--profile)
+   - [Epic 4: School Information & Multi-Tenancy](#epic-4-school-information--multi-tenancy)
+   - [Epic 5: Attendance Intelligence](#epic-5-attendance-intelligence)
+   - [Epic 6: Homework & Assignments](#epic-6-homework--assignments)
+   - [Epic 7: Exams & Results](#epic-7-exams--results)
+   - [Epic 8: Daily Class Activity](#epic-8-daily-class-activity)
+   - [Epic 9: Class Routine](#epic-9-class-routine)
+   - [Epic 10: Notifications](#epic-10-notifications)
+   - [Epic 11: Multi-School Support](#epic-11-multi-school-support)
+   - [Epic 12: App Performance & Reliability](#epic-12-app-performance--reliability)
+   - [Epic 13: Accessibility & Usability](#epic-13-accessibility--usability)
+4. [Phase 2 (Enhanced) Backlog](#phase-2-enhanced-backlog) — 30-35 stories, 8 weeks
+   - [Behavior & Discipline Analysis](#behavior--discipline-analysis)
+   - [Unified Performance Scorecard](#unified-performance-scorecard)
+   - [Smart Learning Progress Tracking](#smart-learning-progress-tracking)
+   - [Fee Management](#fee-management)
+   - [Notice Board](#notice-board)
+   - [Event Management](#event-management)
+   - [Holiday Calendar](#holiday-calendar)
+   - [Issue Messaging System](#issue-messaging-system)
+   - [Parent-Teacher Meeting (PTM)](#parent-teacher-meeting-ptm)
+   - [Teacher Appointment](#teacher-appointment)
+   - [Tomorrow's Due Dashboard](#tomorrows-due-dashboard)
+   - [Phone Directory](#phone-directory)
+5. [Phase 3 (Health & Growth) Backlog](#phase-3-health--growth-backlog) — 15-20 stories, 8 weeks
+   - [Health & Growth Monitoring](#health--growth-monitoring)
+   - [Vaccination Record](#vaccination-record)
+   - [Daily Parent Tips](#daily-parent-tips)
+   - [Classroom Snapshots](#classroom-snapshots)
+   - [Advanced Calendar Integration](#advanced-calendar-integration)
 6. [Backlog Summary](#backlog-summary)
 
 ---
 
 ## User Personas
 
-### 👤 Persona 1: Guardian (Parent)
-
-**Name**: Fatima Hassan  
-**Age**: 35  
-**Location**: Dhaka, Bangladesh  
-**Occupation**: Working professional (office job)  
-**Tech Savvy**: Medium (uses WhatsApp, Facebook daily)  
-
-**Goals**:
-- Know my child's daily performance without visiting school
-- Get alerts if attendance is low
-- Know what homework is due
-- Understand exam results and progress
-- Stay informed about school activities
-
-**Pain Points**:
-- Can't monitor child's progress easily
-- Misses important updates in WhatsApp groups
-- Worried about low attendance
-- Doesn't understand how well child is performing academically
-- Can't access school info when needed
-
-**Behavior**:
-- Checks phone 5-10 times daily
-- Available evenings (6 PM - 10 PM) to check child's updates
-- Prefers notifications over having to check app manually
-- Uses mobile data (sometimes 3G, mostly 4G)
-- Offline only when traveling
-
-**App Usage**:
-- Opens app 3-5 times per week (goal: daily)
-- Session length: 5-10 minutes
-- Primary actions: View attendance, check homework, see exam results
+Every user of the Guardian Parent App is one of exactly two types. There is no generic "Guardian" type — all accounts are either Key Guardian or Additional Guardian.
 
 ---
 
-### 👤 Persona 2: Key Guardian (Primary Parent)
+### Persona 1: Key Guardian (Primary Parent)
 
 **Name**: Ahmed Hassan  
 **Age**: 38  
@@ -81,12 +79,14 @@
 **Occupation**: School teacher (authority figure)  
 **Tech Savvy**: High (uses apps, understands tech)  
 
+**Role in System**: Email matches `student_master.key_guardian_email` set by the school. Designated primary contact. Full access to all features.
+
 **Goals**:
 - Be the primary contact for my child's school
-- Approve other guardians' access to my child's info
-- Have full control and visibility
-- Manage who has access to my child's data
-- Comprehensive view of child's development
+- Approve or deny other guardians' access to my child's info
+- Have full control and visibility over all data
+- Manage who has access to my child's information
+- Comprehensive view of child's academic and behavioral development
 
 **Pain Points**:
 - Need to verify other guardians are legitimate
@@ -95,20 +95,20 @@
 - Want detailed insights for better decision-making
 
 **Behavior**:
-- Most responsible, checks app daily
-- Evening and morning routines (8-9 AM, 8-10 PM)
+- Checks app daily (morning 8-9 AM and evening 8-10 PM)
 - Uses phone exclusively (no desktop)
-- Offline only rarely (maybe 1-2 times/month)
-- Shares responsibility with spouse/other guardian
+- Rarely offline (maybe 1-2 times/month)
+- Shares responsibility with spouse but retains primary control
 
 **App Usage**:
 - Opens app 5-7 times per week (daily habit)
 - Session length: 10-15 minutes
-- Primary actions: View all data, approve other guardians, check alerts
+- Primary actions: View all data, approve/revoke additional guardians, check alerts
+- **Receives**: All push notifications (homework, exams, attendance, behavior, announcements)
 
 ---
 
-### 👤 Persona 3: Additional Guardian (Secondary Parent/Relative)
+### Persona 2: Additional Guardian (Secondary Parent/Relative)
 
 **Name**: Aisha Khan (Aunt)  
 **Age**: 32  
@@ -116,17 +116,19 @@
 **Occupation**: Homemaker, helps with childcare  
 **Tech Savvy**: Low-Medium (uses WhatsApp, needs simple UI)  
 
+**Role in System**: Email does NOT match key guardian email. Must request access; Key Guardian must approve. Read-only access to child data. No push notifications.
+
 **Goals**:
 - Help monitor my niece/nephew's school activities
 - Know about homework and exams
-- Get alerts about important updates
 - Support the primary guardian
+- Access child's data when needed (without being notified constantly)
 
 **Pain Points**:
-- Depends on key guardian for access approval
+- Depends on Key Guardian for access approval
 - Limited visibility into what child is doing
 - Gets confused by complicated apps
-- Worried about bothering primary guardian
+- Finds out about updates only by opening the app (no push notifications)
 
 **Behavior**:
 - Checks app when helping with homework (evenings)
@@ -138,6 +140,7 @@
 - Opens app 2-3 times per week (only when needed)
 - Session length: 2-5 minutes
 - Primary actions: Check homework, view class activities, see attendance
+- **Receives**: No push notifications — sees latest data when opening the app after sync
 
 ---
 
@@ -261,10 +264,10 @@ US-089-P3   = User Story 089 in Phase 3
   - List of pending requests shown with requester details
   - Approve button links additional guardian and triggers sync
   - Deny button blocks access and allows re-submission after 24h
-  - Both parties notified of decision
+  - Key Guardian receives push notification of new request; Additional Guardian sees decision status in-app on next sync (no push notification to Additional Guardian)
   - Child linked immediately on approval
 - **Dependencies**: US-004-MVP
-- **Reference**: [REQUIREMENTS.md#in-app-approval](REQUIREMENTS.md#1-authentication--guardian-management) | [API: Respond](TECH_ARCHITECTURE.md#approval-endpoint)
+- **Reference**: [REQUIREMENTS.md#1-authentication--guardian-management](REQUIREMENTS.md#1-authentication--guardian-management) | [API: Respond](TECH_ARCHITECTURE.md#approval-endpoint)
 
 ---
 
@@ -292,11 +295,11 @@ US-089-P3   = User Story 089 in Phase 3
 - **Acceptance Criteria**:
   - List of additional guardians shown
   - Revoke button with confirmation dialog
-  - Revoked guardian logged out immediately on next sync
+  - Revoked Additional Guardian is force-logged out on next delta sync (within 10 minutes)
   - All linked children access removed
-  - Notification sent to revoked guardian
+  - Revoked Additional Guardian sees in-app message on next sync: "Your access has been revoked. Contact the key guardian." (no push notification sent)
 - **Dependencies**: US-005-MVP
-- **Reference**: [REQUIREMENTS.md#revoke-access](REQUIREMENTS.md#1-authentication--guardian-management) | [API: Revoke](TECH_ARCHITECTURE.md#revoke-endpoint)
+- **Reference**: [REQUIREMENTS.md#1-authentication--guardian-management](REQUIREMENTS.md#1-authentication--guardian-management) | [API: Revoke](TECH_ARCHITECTURE.md#revoke-endpoint)
 
 ---
 
@@ -395,16 +398,17 @@ US-089-P3   = User Story 089 in Phase 3
 - **Priority**: 🔴 MUST
 - **Points**: M (8)
 - **Persona**: Additional Guardian
-- **Story**: As a revoked additional guardian, I want to be immediately notified when my access is revoked so that I understand I can no longer access the app
+- **Story**: As a revoked additional guardian, I want to be informed when my access is revoked so that I understand I can no longer access the app
 - **Acceptance Criteria**:
-  - Sync response includes revocation flag
-  - Local data cleared immediately
+  - Delta sync response includes revocation_status flag
+  - Local data cleared immediately on detection
   - Force logout triggered
-  - Message shown: "Your access has been revoked. Contact the key guardian."
+  - In-app message shown: "Your access has been revoked. Contact the key guardian."
   - Redirect to login screen
-  - Notification sent if in foreground
+  - No push notification sent (Additional Guardian receives no push notifications)
+  - Detection within 10 minutes via next scheduled delta sync
 - **Dependencies**: US-010-MVP, US-007-MVP
-- **Reference**: [REQUIREMENTS.md#revocation-detection](REQUIREMENTS.md#2-sync--offline-functionality) | [API: Revocation](TECH_ARCHITECTURE.md#revocation-detection)
+- **Reference**: [REQUIREMENTS.md#2-sync--offline-functionality](REQUIREMENTS.md#2-sync--offline-functionality) | [API: Delta Sync](TECH_ARCHITECTURE.md#ep-7-delta-sync)
 
 ---
 
@@ -535,16 +539,17 @@ US-089-P3   = User Story 089 in Phase 3
 #### **US-021-MVP: Low Attendance Alert**
 - **Priority**: 🔴 MUST
 - **Points**: S (5)
-- **Persona**: All
-- **Story**: As a parent, I want to be notified when my child's attendance drops below 75% so that I can take action to improve attendance
+- **Persona**: Key Guardian only
+- **Story**: As a Key Guardian, I want to be notified when my child's attendance drops below 75% so that I can take action to improve attendance
 - **Acceptance Criteria**:
   - Threshold: < 75% (configurable by school)
-  - Push notification sent
+  - Push notification sent to Key Guardian only
   - In-app notification badge shown
   - Message: "[Child Name]'s attendance dropped to X%"
   - One alert per day (if condition persists)
+  - Additional Guardian sees the attendance data in-app but receives no push alert
 - **Dependencies**: US-020-MVP, US-010-MVP
-- **Reference**: [REQUIREMENTS.md#low-attendance-alerts](REQUIREMENTS.md#5-attendance-intelligence) | [API: Attendance](TECH_ARCHITECTURE.md#attendance-endpoints)
+- **Reference**: [REQUIREMENTS.md#5-attendance-intelligence](REQUIREMENTS.md#5-attendance-intelligence) | [API: Attendance](TECH_ARCHITECTURE.md#attendance-endpoints)
 
 ---
 
@@ -589,15 +594,16 @@ US-089-P3   = User Story 089 in Phase 3
 #### **US-024-MVP: Homework Due Reminder**
 - **Priority**: 🟡 SHOULD
 - **Points**: S (3)
-- **Persona**: All
-- **Story**: As a parent, I want to receive a reminder 1 day before homework is due so that I can ensure my child submits on time
+- **Persona**: Key Guardian only
+- **Story**: As a Key Guardian, I want to receive a push reminder 1 day before homework is due so that I can ensure my child submits on time
 - **Acceptance Criteria**:
-  - Push notification sent 24 hours before due date
-  - "Due tomorrow" label shown in app
+  - Push notification sent to Key Guardian 24 hours before due date
+  - "Due tomorrow" label shown in app for both personas
   - Notification includes subject and title
   - Delivery success > 99%
+  - Additional Guardian sees "Due tomorrow" label in-app only (no push notification)
 - **Dependencies**: US-023-MVP, FCM setup
-- **Reference**: [REQUIREMENTS.md#deadline-reminders](REQUIREMENTS.md#8-homework--assignment-tracker)
+- **Reference**: [REQUIREMENTS.md#8-homework--assignment-tracker](REQUIREMENTS.md#8-homework--assignment-tracker)
 
 ---
 
@@ -706,52 +712,55 @@ US-089-P3   = User Story 089 in Phase 3
 #### **US-030-MVP: Push Notifications for Key Events**
 - **Priority**: 🔴 MUST
 - **Points**: M (13)
-- **Persona**: All
-- **Story**: As a parent, I want to receive notifications for important events so that I stay informed without checking the app manually
+- **Persona**: Key Guardian only
+- **Story**: As a Key Guardian, I want to receive push notifications for important events so that I stay informed without checking the app manually
 - **Acceptance Criteria**:
-  - Notifications sent for:
+  - Push notifications sent to Key Guardian only for:
     - Homework due tomorrow
     - Exam announced / scheduled
     - Low attendance alert
     - Behavioral concerns
     - Assignment evaluated
+  - Additional Guardian receives no push notifications
   - Tap notification opens relevant section
-  - Notification preference settings available
+  - Notification preference settings available (Key Guardian only)
   - Do Not Disturb hours respected (e.g., 9 PM - 8 AM)
-  - FCM used for delivery
+  - FCM used for delivery to Key Guardian devices only
 - **Dependencies**: FCM setup
-- **Reference**: [REQUIREMENTS.md#notification-system](REQUIREMENTS.md#19-intelligent-notification-system) | [API: Notifications](TECH_ARCHITECTURE.md#notification-endpoints)
+- **Reference**: [REQUIREMENTS.md#10-notifications-core-implementation](REQUIREMENTS.md#10-notifications-core-implementation) | [API: Notifications](TECH_ARCHITECTURE.md#notification-endpoints)
 
 ---
 
 #### **US-031-MVP: Notification Preferences**
 - **Priority**: 🟡 SHOULD
 - **Points**: S (5)
-- **Persona**: All
-- **Story**: As a parent, I want to customize notification settings so that I only receive notifications I care about
+- **Persona**: Key Guardian only
+- **Story**: As a Key Guardian, I want to customize my notification settings so that I only receive notifications I care about
 - **Acceptance Criteria**:
   - Enable/disable per category (homework, exams, attendance, etc.)
   - Set quiet hours (no notifications during sleep)
   - Frequency control (e.g., once per day for repeat alerts)
-  - Settings synced across devices
+  - Settings synced across Key Guardian devices only
+  - Not applicable to Additional Guardian (receives no push notifications)
 - **Dependencies**: US-030-MVP
-- **Reference**: [REQUIREMENTS.md#notification-preferences](REQUIREMENTS.md#19-intelligent-notification-system)
+- **Reference**: [REQUIREMENTS.md#10-notifications-core-implementation](REQUIREMENTS.md#10-notifications-core-implementation)
 
 ---
 
 #### **US-032-MVP: Notification History**
 - **Priority**: 🟢 NICE
 - **Points**: S (3)
-- **Persona**: All
-- **Story**: As a parent, I want to view past notifications so that I can review messages I might have missed
+- **Persona**: Key Guardian only
+- **Story**: As a Key Guardian, I want to view past notifications so that I can review messages I might have missed
 - **Acceptance Criteria**:
-  - Notification center / history view
+  - Notification center / history view (Key Guardian only)
   - Notifications sortable by date
   - Mark as read/unread
   - Search notifications
   - Clear all option
+  - Not shown to Additional Guardian (no notification history)
 - **Dependencies**: US-030-MVP
-- **Reference**: [REQUIREMENTS.md#notification-history](REQUIREMENTS.md#19-intelligent-notification-system)
+- **Reference**: [REQUIREMENTS.md#10-notifications-core-implementation](REQUIREMENTS.md#10-notifications-core-implementation)
 
 ---
 
@@ -897,33 +906,111 @@ US-089-P3   = User Story 089 in Phase 3
 **Stories**: 30-35  
 **Total Story Points**: 120-150  
 
-**Features Added**:
-- Behavior & Discipline Analysis
-- Unified Performance Scorecard
-- Smart Learning Progress Tracking
-- Fee Management
-- Notice Board
-- Event Management
-- Holiday Calendar
-- Issue Messaging System
-- Parent-Teacher Meeting
-- Teacher Appointment
-- Tomorrow's Due Dashboard
+**[See Feature Specifications →](REQUIREMENTS.md#phase-2-enhanced-engagement-features)**
 
-**Note**: Phase 2 backlog items follow same structure as Phase 1. [See REQUIREMENTS.md Phase 2 features](REQUIREMENTS.md#table-of-contents) for details.
+---
 
-**Sample Stories**:
-- US-041-P2: View Behavior Scores & Trend
-- US-042-P2: Low Behavior Score Alert
-- US-043-P2: View Performance Scorecard
-- US-044-P2: View Chapter-wise Progress
-- US-045-P2: View Fee Due Notices
-- US-046-P2: Make Fee Payment (bKash)
-- US-047-P2: View School Notices
-- US-048-P2: View School Events
-- US-049-P2: View Holiday Calendar
-- US-050-P2: Submit Issue to School
-- ... and 20+ more
+### Behavior & Discipline Analysis
+
+**Reference**: [FR-11.x](REQUIREMENTS.md#11-behavior--discipline-analysis)
+
+- **US-041-P2**: View Behavior Scores & Trend
+- **US-042-P2**: Low Behavior Score Alert *(Key Guardian push notification only)*
+
+---
+
+### Unified Performance Scorecard
+
+**Reference**: [FR-12.x](REQUIREMENTS.md#12-unified-performance-scorecard)
+
+- **US-043-P2**: View Performance Scorecard
+
+---
+
+### Smart Learning Progress Tracking
+
+**Reference**: [FR-13.x](REQUIREMENTS.md#13-smart-learning-progress-tracking)
+
+- **US-044-P2**: View Chapter-wise Progress
+
+---
+
+### Fee Management
+
+**Reference**: [FR-14.x](REQUIREMENTS.md#14-fee-management)
+
+- **US-045-P2**: View Fee Due Notices
+- **US-046-P2**: Make Fee Payment (bKash)
+- **US-047-P2**: Fee Payment Confirmation *(Key Guardian push notification only)*
+
+---
+
+### Notice Board
+
+**Reference**: [FR-15.x](REQUIREMENTS.md#15-notice-board)
+
+- **US-048-P2**: View School Notices
+- **US-049-P2**: New Notice Alert *(Key Guardian push notification only)*
+
+---
+
+### Event Management
+
+**Reference**: [FR-16.x](REQUIREMENTS.md#16-event-management)
+
+- **US-050-P2**: View School Events
+- **US-051-P2**: Event Reminder *(Key Guardian push notification only)*
+
+---
+
+### Holiday Calendar
+
+**Reference**: [FR-17.x](REQUIREMENTS.md#17-holiday-calendar)
+
+- **US-052-P2**: View Holiday Calendar
+
+---
+
+### Issue Messaging System
+
+**Reference**: [FR-18.x](REQUIREMENTS.md#18-issue-messaging-system)
+
+- **US-053-P2**: Submit Issue to School
+- **US-054-P2**: Issue Status Update *(Key Guardian push notification only)*
+
+---
+
+### Parent-Teacher Meeting (PTM)
+
+**Reference**: [FR-19.x](REQUIREMENTS.md#19-parent-teacher-meeting-ptm)
+
+- **US-055-P2**: View PTM Schedule
+- **US-056-P2**: PTM Reminder *(Key Guardian push notification only)*
+
+---
+
+### Teacher Appointment
+
+**Reference**: [FR-20.x](REQUIREMENTS.md#20-teacher-appointment)
+
+- **US-057-P2**: Request Teacher Appointment
+- **US-058-P2**: Appointment Confirmation *(Key Guardian push notification only)*
+
+---
+
+### Tomorrow's Due Dashboard
+
+**Reference**: [FR-21.x](REQUIREMENTS.md#21-tomorrows-due-dashboard)
+
+- **US-059-P2**: View Tomorrow's Homework & Exams
+
+---
+
+### Phone Directory
+
+**Reference**: [FR-22.x](REQUIREMENTS.md#22-phone-directory)
+
+- **US-060-P2**: View & Call School Staff Directory
 
 ---
 
@@ -933,21 +1020,49 @@ US-089-P3   = User Story 089 in Phase 3
 **Stories**: 15-20  
 **Total Story Points**: 80-100  
 
-**Features Added**:
-- Health & Growth Monitoring
-- Vaccination Record
-- Daily Parent Tips
-- Classroom Snapshots
-- Advanced Calendar Integration
+**[See Feature Specifications →](REQUIREMENTS.md#phase-3-health--growth-wellness-features)**
 
-**Sample Stories**:
-- US-062-P3: Record Height & Weight
-- US-063-P3: View Growth Charts
-- US-064-P3: View Vaccination History
-- US-065-P3: Vaccination Due Reminder
-- US-066-P3: Receive Daily Parenting Tips
-- US-067-P3: View Classroom Snapshots
-- ... and more
+---
+
+### Health & Growth Monitoring
+
+**Reference**: [FR-23.x](REQUIREMENTS.md#23-health--growth-monitoring)
+
+- **US-062-P3**: View Height & Weight Records
+- **US-063-P3**: View Growth Charts
+
+---
+
+### Vaccination Record
+
+**Reference**: [FR-24.x](REQUIREMENTS.md#24-vaccination-record)
+
+- **US-064-P3**: View Vaccination History
+- **US-065-P3**: Vaccination Due Reminder *(Key Guardian push notification only)*
+
+---
+
+### Daily Parent Tips
+
+**Reference**: [FR-25.x](REQUIREMENTS.md#25-daily-parent-tips)
+
+- **US-066-P3**: Receive Daily Parenting Tips *(Key Guardian push notification only)*
+
+---
+
+### Classroom Snapshots
+
+**Reference**: [FR-26.x](REQUIREMENTS.md#26-classroom-snapshots)
+
+- **US-067-P3**: View Classroom Snapshots
+
+---
+
+### Advanced Calendar Integration
+
+**Reference**: [FR-27.x](REQUIREMENTS.md#27-advanced-calendar-integration)
+
+- **US-068-P3**: Sync School Events to Device Calendar
 
 ---
 

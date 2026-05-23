@@ -9,7 +9,7 @@
 
 ---
 
-## 🔗 How to Use This Document
+## How to Use This Document
 
 **All API endpoints and database tables include explicit cross-references**:
 
@@ -27,13 +27,57 @@
 
 ## Table of Contents
 
-1. [System Architecture Overview](#system-architecture-overview)
-2. [Flutter Technology Stack](#flutter-technology-stack)
-3. [Project Structure](#project-structure)
-4. [SQLite Database Schema](#sqlite-database-schema)
-5. [REST API Endpoints](#rest-api-endpoints)
-6. [Data Sync Flow](#data-sync-flow)
-7. [Error Handling & Retry Logic](#error-handling--retry-logic)
+1. [SQLite Database Schema](#sqlite-database-schema)
+   - **Phase 1 (MVP)**
+     - [Authentication & Guardian Management](#core-tables)
+       - [TB-1: Guardian Profile Table](#tb-1-guardian-profile-table)
+       - [TB-2: Devices Table](#tb-2-devices-table)
+       - [TB-3: Guardian Children Link Table](#tb-3-guardian-children-link-table)
+     - [Dashboard & Student Profile](#tb-4-student-profile-table)
+       - [TB-4: Student Profile Table](#tb-4-student-profile-table)
+     - [Sync & Offline Functionality](#tb-5-sync-metadata-table)
+       - [TB-5: Sync Metadata Table](#tb-5-sync-metadata-table)
+     - [Attendance Intelligence](#tb-6-attendance-table)
+       - [TB-6: Attendance Table](#tb-6-attendance-table)
+     - [Homework & Assignment Tracker](#tb-7-homework-table)
+       - [TB-7: Homework Table](#tb-7-homework-table)
+     - [Examination & Result Management](#tb-8-exam-table)
+       - [TB-8: Exam Table](#tb-8-exam-table)
+       - [TB-9: Exam Results Table](#tb-9-exam-results-table)
+     - [Daily Class Activity](#tb-10-class-activity-table)
+       - [TB-10: Class Activity Table](#tb-10-class-activity-table)
+     - [Class Routine](#tb-11-class-routine-table)
+       - [TB-11: Class Routine Table](#tb-11-class-routine-table)
+     - [School Information & Multi-Tenancy](#tb-12-school-info-table)
+       - [TB-12: School Info Table](#tb-12-school-info-table)
+       - [TB-13: School Contacts Table](#tb-13-school-contacts-table)
+   - **Phase 2 & 3** — [Additional Tables (Phase 2 & 3)](#14-additional-tables-phase-2--3)
+2. [REST API Endpoints](#rest-api-endpoints)
+   - **Phase 1 (MVP)**
+     - [Authentication & Guardian Management](#authentication-endpoints)
+       - [EP-1: Register Guardian](#ep-1-register-guardian)
+       - [EP-2: Guardian Login](#ep-2-guardian-login)
+       - [EP-3: Send OTP (Child Linking)](#ep-3-send-otp-child-linking)
+       - [EP-4: Verify OTP & Link Child](#ep-4-verify-otp--link-child)
+       - [EP-5: Register Device](#ep-5-register-device)
+     - [Sync & Offline Functionality](#sync-endpoints)
+       - [EP-6: Initial Sync](#ep-6-initial-sync-first-login--new-device)
+       - [EP-7: Delta Sync](#ep-7-delta-sync-10-minute-background)
+     - [Dashboard & Student Profile](#dashboard--student-endpoints)
+       - [EP-8: Get Dashboard](#ep-8-get-dashboard)
+       - [EP-9: Get Guardian Children](#ep-9-get-guardian-children)
+     - [Attendance Intelligence](#attendance-endpoints)
+       - [EP-10: Get Attendance](#ep-10-get-attendance)
+     - [Homework & Assignment Tracker](#homework-endpoints)
+       - [EP-11: Get Homework List](#ep-11-get-homework-list)
+     - [Examination & Result Management](#exam-endpoints)
+       - [EP-12: Get Exam Schedule](#ep-12-get-exam-schedule)
+       - [EP-13: Get Exam Results](#ep-13-get-exam-results)
+     - [School Information & Multi-Tenancy](#school-endpoints)
+       - [EP-14: Search Schools](#ep-14-search-schools)
+       - [EP-15: Get School Directory](#ep-15-get-school-directory)
+     - [Notifications](#notification-endpoints)
+       - [EP-16: Get Notifications (Key Guardian only)](#ep-16-get-notifications)
 
 ---
 
@@ -1304,7 +1348,8 @@ Response 200 OK:
 ### **Notification Endpoints**
 
 #### **EP-16: Get Notifications**
-**Feature**: [Feature 10: Notifications](#10-notifications-core-implementation) | **User Stories**: [US-033-MVP](#us-033-mvp), [US-034-MVP](#us-034-mvp), [US-035-MVP](#us-035-mvp)
+**Feature**: [Feature 10: Notifications](REQUIREMENTS.md#10-notifications-core-implementation) | **User Stories**: [US-030-MVP](USER_STORIES_PERSONAS.md#us-030-mvp-push-notifications-for-key-events), [US-031-MVP](USER_STORIES_PERSONAS.md#us-031-mvp-notification-preferences), [US-032-MVP](USER_STORIES_PERSONAS.md#us-032-mvp-notification-history)  
+**Access**: Key Guardian only — FCM push and notification history are not available to Additional Guardian
 ```http
 GET /api/v1/notifications?page=1&limit=20
 Authorization: Bearer {access_token}
